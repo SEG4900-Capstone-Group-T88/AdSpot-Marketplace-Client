@@ -1,3 +1,5 @@
+![](https://github.com/SEG4900-Capstone-Group-T88/AdSpot-Marketplace-Client/actions/workflows/nodejs.yml/badge.svg)
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

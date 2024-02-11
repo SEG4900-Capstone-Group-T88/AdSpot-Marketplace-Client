@@ -1,12 +1,10 @@
-import { useMutation, gql } from "@apollo/client";
-import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { gql } from "../src/__generated__/gql";
 
 function AddAuthor() {
-  let input;
+  let input: HTMLInputElement | null;
 
-  const [result, setResult] = useState(undefined);
-
-  const query = gql`
+  const query = gql(`
     mutation AddAuthor($input: AddAuthorInput!) {
       addAuthor(input: $input) {
         author {
@@ -21,22 +19,24 @@ function AddAuthor() {
         }
       }
     }
-  `;
-  const [addAuthor, { data, loading, error }] = useMutation(query);
+  `);
+  const [addAuthor, { data, loading }] = useMutation(query);
 
   if (loading) return "Submitting ...";
 
-  let status;
-  switch (result?.status) {
-    case "success":
-      status = `Author ${result.name} with ID ${result.id} was successfully added.`;
-      break;
-    case "error":
-      status = result.errors.map(({ code, message }) => (<p>{message}</p>));
-      break;
-    default:
-      status = null;
-      break;
+  let status = null;
+  if (data) {
+    const numErrors = data.addAuthor.errors?.length ?? 0;
+    switch (numErrors) {
+      case 0:
+        const id = data.addAuthor.author!.id;
+        const name = data.addAuthor.author!.name;
+        status = (<p>Successfully added author {name} with ID {id}.</p>);
+        break;
+      default:
+        status = (data.addAuthor.errors?.map((error) => (<p>{error.code}: {error.message}</p>)))
+        break;
+    }
   }
 
   return (
@@ -45,24 +45,12 @@ function AddAuthor() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          addAuthor({
-            variables: { input: { name: input.value } },
-            onCompleted: (data) => {
-              const numErrors = data.addAuthor.errors?.length ?? 0;
-              switch (numErrors) {
-                case 0:
-                  const id = data.addAuthor.author.id;
-                  const name = data.addAuthor.author.name;
-                  setResult({ status: "success", id: id, name: name });
-                  break;
-                default:
-                  console.log(data.addAuthor.errors);
-                  setResult({ status: "error", errors: data.addAuthor.errors });
-                  break;
-              }
-            },
-          });
-          input.value = "";
+          if (input !== null) {
+            addAuthor({
+              variables: { input: { name: input.value } },
+            });
+            input.value = "";
+          }
         }}
       >
         <label>

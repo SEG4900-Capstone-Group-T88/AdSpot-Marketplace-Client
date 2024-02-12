@@ -28,6 +28,16 @@ export type AddAuthorPayload = {
   errors?: Maybe<Array<AddAuthorError>>;
 };
 
+export type AddUserInput = {
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+};
+
+export type AddUserPayload = {
+  __typename?: 'AddUserPayload';
+  user?: Maybe<User>;
+};
+
 export type Author = {
   __typename?: 'Author';
   books: Array<Book>;
@@ -121,11 +131,17 @@ export type ListFilterInputTypeOfBookFilterInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   addAuthor: AddAuthorPayload;
+  addUser: AddUserPayload;
 };
 
 
 export type MutationAddAuthorArgs = {
   input: AddAuthorInput;
+};
+
+
+export type MutationAddUserArgs = {
+  input: AddUserInput;
 };
 
 export type NameCannotBeBlankError = Error & {
@@ -160,6 +176,7 @@ export type Query = {
   __typename?: 'Query';
   authors: Array<Author>;
   books?: Maybe<BooksConnection>;
+  users: Array<User>;
 };
 
 
@@ -198,12 +215,18 @@ export type StringOperationFilterInput = {
   startsWith?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type AddAuthorMutationVariables = Exact<{
-  input: AddAuthorInput;
+export type User = {
+  __typename?: 'User';
+  email: Scalars['String']['output'];
+  password: Scalars['String']['output'];
+};
+
+export type AddUserMutationVariables = Exact<{
+  input: AddUserInput;
 }>;
 
 
-export type AddAuthorMutation = { __typename?: 'Mutation', addAuthor: { __typename?: 'AddAuthorPayload', author?: { __typename?: 'Author', id: number, name: string } | null, errors?: Array<{ __typename?: 'NameCannotBeBlankError', message: string, code: 'NameCannotBeBlankError' } | { __typename?: 'NameCannotContainNumbersError', message: string, code: 'NameCannotContainNumbersError' } | { __typename?: 'NameCannotContainPunctuationError', message: string, code: 'NameCannotContainPunctuationError' }> | null } };
+export type AddUserMutation = { __typename?: 'Mutation', addUser: { __typename?: 'AddUserPayload', user?: { __typename?: 'User', email: string, password: string } | null } };
 
 export type GetAuthorsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -211,5 +234,5 @@ export type GetAuthorsQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetAuthorsQuery = { __typename?: 'Query', authors: Array<{ __typename?: 'Author', id: number, name: string, books: Array<{ __typename?: 'Book', id: number, title: string }> }> };
 
 
-export const AddAuthorDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddAuthor"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddAuthorInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addAuthor"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"author"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"errors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"code"},"name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Error"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]}}]} as unknown as DocumentNode<AddAuthorMutation, AddAuthorMutationVariables>;
+export const AddUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"password"}}]}}]}}]}}]} as unknown as DocumentNode<AddUserMutation, AddUserMutationVariables>;
 export const GetAuthorsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAuthors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"authors"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"EnumValue","value":"ASC"}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"books"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}}]}}]} as unknown as DocumentNode<GetAuthorsQuery, GetAuthorsQueryVariables>;

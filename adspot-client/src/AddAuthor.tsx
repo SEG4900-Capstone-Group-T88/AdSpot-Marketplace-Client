@@ -6,65 +6,37 @@ import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "rea
 function AddAuthor() {
   let emailInputRef: HTMLInputElement | null;
   let passwordInputRef: HTMLInputElement | null;
-/**
+
   const query = gql(`
-    mutation AddAuthor($input: AddAuthorInput!) {
-      addAuthor(input: $input) {
-        author {
+    mutation AddUser($input: AddUserInput!) {
+      addUser(input: $input) {
+        user {
           email
           password
-        }
-        errors {
-          code: __typename
-          ... on Error {
-            message
-          }
         }
       }
     }
   `);
-  const [addAuthor, { data, loading }] = useMutation(query);
+  const [addUser, { data, loading }] = useMutation(query);
 
-  if (loading) return "Submitting ...";
+  if (loading) return "Creating user ...";
 
-  let status = null;
-  if (data) {
-    const numErrors = data.addAuthor.errors?.length ?? 0;
-    switch (numErrors) {
-      case 0:
-        const id = data.addAuthor.author!.id;
-        const name = data.addAuthor.author!.name;
-        status = (<p>Successfully added author {name} with ID {id}.</p>);
-        break;
-      default:
-        status = (data.addAuthor.errors?.map((error: { code: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; message: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; }) => (<p>{error.code}: {error.message}</p>)))
-        break;
-    }
-  }
-  */
+  
+
 
   return (
     <div>
       <form
         onSubmit={(e) => {
-          /** 
-          e.preventDefault();
-          if ( emailInputRef !== null && passwordInputRef !== null) {
-            addAuthor({
-              variables: { input: { email: emailInputRef.value, password: passwordInputRef } },
-            });
-            emailInputRef.value = "";
-            passwordInputRef.value = "";
-          }
-          */
          e.preventDefault();
-         if (passwordInputRef !== null) {
-          const hashedPassword = bcrypt.hashSync(passwordInputRef.value, 10);
-
-          console.log(passwordInputRef.value);
-          console.log(hashedPassword);
-         }
-         
+         if ( emailInputRef !== null && passwordInputRef !== null) {
+          addUser({
+            variables: { input: { email: emailInputRef.value, password: bcrypt.hashSync
+              (passwordInputRef.value, 10) } },
+          });
+          emailInputRef.value = "";
+          passwordInputRef.value = "";
+        }
         }}
       >
         <label>

@@ -1,15 +1,18 @@
 import { useMutation } from "@apollo/client";
 import { gql } from "../src/__generated__/gql";
+import bcrypt from "bcryptjs";
+import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
 
 function AddAuthor() {
-  let input: HTMLInputElement | null;
-
+  let emailInputRef: HTMLInputElement | null;
+  let passwordInputRef: HTMLInputElement | null;
+/**
   const query = gql(`
     mutation AddAuthor($input: AddAuthorInput!) {
       addAuthor(input: $input) {
         author {
-          id
-          name
+          email
+          password
         }
         errors {
           code: __typename
@@ -34,31 +37,51 @@ function AddAuthor() {
         status = (<p>Successfully added author {name} with ID {id}.</p>);
         break;
       default:
-        status = (data.addAuthor.errors?.map((error) => (<p>{error.code}: {error.message}</p>)))
+        status = (data.addAuthor.errors?.map((error: { code: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; message: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; }) => (<p>{error.code}: {error.message}</p>)))
         break;
     }
   }
+  */
 
   return (
     <div>
-      {status}
       <form
         onSubmit={(e) => {
+          /** 
           e.preventDefault();
-          if (input !== null) {
+          if ( emailInputRef !== null && passwordInputRef !== null) {
             addAuthor({
-              variables: { input: { name: input.value } },
+              variables: { input: { email: emailInputRef.value, password: passwordInputRef } },
             });
-            input.value = "";
+            emailInputRef.value = "";
+            passwordInputRef.value = "";
           }
+          */
+         e.preventDefault();
+         if (passwordInputRef !== null) {
+          const hashedPassword = bcrypt.hashSync(passwordInputRef.value, 10);
+
+          console.log(passwordInputRef.value);
+          console.log(hashedPassword);
+         }
+         
         }}
       >
         <label>
-          Author Name:
+          Email:
           <input
-            type="text"
+            type="email"
             ref={(node) => {
-              input = node;
+              emailInputRef = node;
+            }}
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            type="password"
+            ref={(node) => {
+              passwordInputRef = node;
             }}
           />
         </label>

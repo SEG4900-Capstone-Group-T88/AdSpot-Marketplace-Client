@@ -16,7 +16,7 @@ function AddAuthor() {
       }
     }
   `);
-  const [addUser, { data, loading }] = useMutation(query);
+  const [addUser, { loading }] = useMutation(query);
 
   if (loading) return "Creating user ...";
 

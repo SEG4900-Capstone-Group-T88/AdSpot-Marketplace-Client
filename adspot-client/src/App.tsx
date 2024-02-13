@@ -1,11 +1,11 @@
 import "./App.css";
-import AddAuthor from "./AddAuthor";
+import AddUser from "./AddUser";
 import AuthorList from "./AuthorList";
 
 function App() {
   return (
     <div>
-      <AddAuthor />
+      <AddUser />
       <AuthorList />
     </div>
   );

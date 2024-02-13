@@ -1,7 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { gql } from "../src/__generated__/gql";
 import bcrypt from "bcryptjs";
-import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
 
 function AddAuthor() {
   let emailInputRef: HTMLInputElement | null;
@@ -21,22 +20,23 @@ function AddAuthor() {
 
   if (loading) return "Creating user ...";
 
-  
-
-
   return (
     <div>
       <form
         onSubmit={(e) => {
-         e.preventDefault();
-         if ( emailInputRef !== null && passwordInputRef !== null) {
-          addUser({
-            variables: { input: { email: emailInputRef.value, password: bcrypt.hashSync
-              (passwordInputRef.value, 10) } },
-          });
-          emailInputRef.value = "";
-          passwordInputRef.value = "";
-        }
+          e.preventDefault();
+          if (emailInputRef !== null && passwordInputRef !== null) {
+            addUser({
+              variables: {
+                input: {
+                  email: emailInputRef.value,
+                  password: bcrypt.hashSync(passwordInputRef.value, 10),
+                },
+              },
+            });
+            emailInputRef.value = "";
+            passwordInputRef.value = "";
+          }
         }}
       >
         <label>
@@ -57,7 +57,7 @@ function AddAuthor() {
             }}
           />
         </label>
-        <button type="submit">Add Author</button>
+        <button type="submit">Add User</button>
       </form>
     </div>
   );

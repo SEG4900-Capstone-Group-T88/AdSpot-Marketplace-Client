@@ -10,7 +10,7 @@ import mainLogo from "../public/adSpotLogo.png"
 import { signIn, useSession, signOut } from "next-auth/react"
 import { redirect } from "next/navigation";
 
-export default function page() {
+export default function Main() {
   const { data: session } = useSession();
 
   return (

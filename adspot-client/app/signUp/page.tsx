@@ -4,9 +4,9 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 import Link from "next/link"
-import { Label } from "../../components/ui/label"
-import { Input } from "../../components/ui/input"
-import { Button } from "../../components/ui/button"
+import { Label } from "../components/ui/label"
+import { Input } from "../components/ui/input"
+import { Button } from "../components/ui/button"
 import mainLogo from "../../public/adSpotLogo.png"
 import React from "react"
 import Image from "next/image"
@@ -87,7 +87,7 @@ export default function SignUp() {
   )
 }
 
-function FacebookIcon(props) {
+function FacebookIcon(props: any) {
   return (
     <svg
       {...props}
@@ -107,7 +107,7 @@ function FacebookIcon(props) {
 }
 
 
-function InstagramIcon(props) {
+function InstagramIcon(props: any) {
   return (
     <svg
       {...props}
@@ -129,7 +129,7 @@ function InstagramIcon(props) {
 }
 
 
-function TwitterIcon(props) {
+function TwitterIcon(props: any) {
   return (
     <svg
       {...props}

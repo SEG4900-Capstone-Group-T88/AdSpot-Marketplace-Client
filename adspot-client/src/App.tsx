@@ -1,12 +1,12 @@
 import "./App.css";
 import AddUser from "./AddUser";
-import AuthorList from "./AuthorList";
+import ConnectSocial from "./ConnectSocial";
 
 function App() {
     return (
         <div>
             <AddUser />
-            <AuthorList />
+            <ConnectSocial />
         </div>
     );
 }

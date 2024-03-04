@@ -1,13 +1,11 @@
-import "./App.css";
-import AddUser from "./AddUser";
-import AuthorList from "./AuthorList";
+import Homepage from "./routes/Homepage";
+import 'bootstrap/dist/css/bootstrap.css'
 
 function App() {
     return (
-        <div>
-            <AddUser />
-            <AuthorList />
-        </div>
+        <>
+            <Homepage/>
+        </>
     );
 }
 

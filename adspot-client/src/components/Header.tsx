@@ -17,11 +17,11 @@ function AuthButton({isLoggedIn}) {
 function Header() {
     return (
         <Navbar expand="xxl" bg="light">
-            <Container fluid>
+            <Container>
                 <Navbar.Brand href="/">
                     <img
                         alt="AdSpot Icon"
-                        src="./images/adspot-favicon-color.png"
+                        src="./images/adspot-favicon-color.svg"
                         width="30"
                         height="30"
                         className="d-inline-block align-top"

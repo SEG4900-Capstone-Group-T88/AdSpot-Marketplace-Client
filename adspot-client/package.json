@@ -14,10 +14,13 @@
     "dependencies": {
         "@apollo/client": "^3.9.4",
         "bcryptjs": "^2.4.3",
+        "bootstrap": "^5.3.3",
+        "bootstrap-icons": "^1.11.3",
         "graphql": "^16.8.1",
         "react": "^18.2.0",
         "react-bootstrap": "^2.10.1",
-        "react-dom": "^18.2.0"
+        "react-dom": "^18.2.0",
+        "react-router-dom": "^6.22.2"
     },
     "devDependencies": {
         "@graphql-codegen/cli": "^5.0.2",

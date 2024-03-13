@@ -1,16 +1,32 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Col, Container, Modal, Nav, Navbar, Row } from "react-bootstrap";
+import { useState } from "react";
 
-function AuthButton({isLoggedIn}) {
+
+function LogIn({isLoggedIn}) {
+    const [show, setShow] = useState(false);
+
+    const launchLogInModal = () => setShow(true);
+    const closeLogInModal = () => setShow(false);
+
     if (isLoggedIn) {
         return <Nav.Link>Logout</Nav.Link>
     } else {
         return (
             <>
-                <Nav.Link>Sign Up</Nav.Link>
-                <Nav.Link>Login</Nav.Link>
+                <Nav.Link onClick={launchLogInModal}>Login</Nav.Link>
+            
+                <Modal show={show} onHide={closeLogInModal} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+                    <Row>
+                        <Col>
+                            <h1>Col 1</h1>
+                        </Col>
+                        <Col>
+                            <h1>Col 2</h1>
+                        </Col>
+                    </Row>
+                </Modal>
             </>
         )
-        
     }
 }
 
@@ -29,7 +45,7 @@ function Header() {
                     AdSpot Marketplace
                 </Navbar.Brand>
                 <Nav className="me-2" >
-                    <AuthButton isLoggedIn={false}/>
+                    <LogIn isLoggedIn={false}/>
                 </Nav>
             </Container>
         </Navbar>

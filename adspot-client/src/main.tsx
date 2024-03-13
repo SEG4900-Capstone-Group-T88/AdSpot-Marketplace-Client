@@ -19,6 +19,7 @@ root.render(
             clientId="H7PEZ5RNCSTyHaTri9uSHxxrLlH1rkdg"
             authorizationParams={{
                 redirect_uri: window.location.origin,
+                audience: "https://adspot/api",
             }}
         >
             <ApolloProvider client={client}>
